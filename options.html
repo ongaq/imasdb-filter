@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<link rel="stylesheet" href="options.css">
+</head>
+<body>
+
+	<div class="imasdb">
+		<p class="imasdb__p">番組表の一覧に表示しておきたい声優名を入力する<br>(複数の場合は改行で区切る)</p>
+
+		<div class="imasdb__autoinput">
+			<p class="imasdb__autoinput__description">アイマスDBの関連声優一覧から声優名を自動入力する</p>
+			<div class="imasdb__autoinput__list" data-brandlist>
+				<button class="imasdb__autoinput__list__btn" data-brand="765as">765PRO ALLSTARS</button>
+				<button class="imasdb__autoinput__list__btn" data-brand="cinderella">シンデレラガールズ</button>
+				<button class="imasdb__autoinput__list__btn" data-brand="million">ミリオンライブ！</button>
+				<button class="imasdb__autoinput__list__btn" data-brand="sidem">SideM</button>
+				<button class="imasdb__autoinput__list__btn" data-brand="shinycolors">シャイニーカラーズ</button>
+				<button class="imasdb__autoinput__list__btn" data-brand="xenoglossia">ゼノグラシア</button>
+				<button class="imasdb__autoinput__list__btn" data-brand="dearlystars">ディアリースターズ</button>
+			</div>
+			<p id="error" class="imasdb__autoinput__error"></p>
+		</div>
+
+		<textarea id="voiceActors" class="imasdb__textarea"></textarea>
+
+		<div class="imasdb__btn">
+			<button id="save" class="imasdb__btn__save">保存</button>
+			<span id="countup" class="imasdb__btn__countup">0</span>
+			<p id="savedText" class="imasdb__btn__savedText"></p>
+		</div>
+	</div>
+
+	<script type="module" src="options.js"></script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+{
+	"manifest_version": 2,
+	"name": "アイマスDB声優フィルター",
+	"description": "アイマスDBの関連番組を指定した声優名で絞り込む",
+	"version": "1.0.0",
+	"minimum_chrome_version": "88",
+	"content_scripts": [
+		{
+			"matches": [
+				"https://imas-db.jp/*"
+			],
+			"css": ["main.css"],
+			"js": ["main.js"],
+			"run_at": "document_end",
+			"all_frames": true
+		}
+	],
+	"options_ui": {
+		"chrome_style": true,
+		"page": "options.html"
+	},
+	"permissions": [
+		"storage",
+		"https://imas-db.jp/*"
+	]
+}
