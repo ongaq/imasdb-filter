@@ -2,8 +2,11 @@
 	"manifest_version": 2,
 	"name": "アイマスDB声優フィルター",
 	"description": "アイマスDBの関連番組を指定した声優名で絞り込む",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"minimum_chrome_version": "88",
+	"icons": {
+		"128": "icon.png"
+	},
 	"content_scripts": [
 		{
 			"matches": [
