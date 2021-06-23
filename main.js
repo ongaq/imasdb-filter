@@ -1,9 +1,9 @@
 'use strict';
 
 (async() => {
-  if (location.pathname !== '/bangumi/') {
-    return;
-  }
+  const isProgram = /\/bangumi\/(scheduled)?/.test(location.pathname);
+
+  if (!isProgram) return;
 
   const body = document.querySelector('body > .maruamyu-body');
   body.style.visibility = 'hidden';
