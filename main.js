@@ -1,7 +1,7 @@
 'use strict';
 
 (async() => {
-  const isProgram = /\/bangumi\/(scheduled)?/.test(location.pathname);
+  const isProgram = /^\/bangumi\/(scheduled)?$/.test(location.pathname);
 
   if (!isProgram) return;
 
