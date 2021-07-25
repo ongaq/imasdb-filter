@@ -2,12 +2,12 @@
 
 (async() => {
   const isProgram = /^\/bangumi\/(scheduled)?$/.test(location.pathname);
+  const body = document.querySelector('body > .container-fluid') || document.querySelector('body > .maruamyu-body');
 
-  if (!isProgram) return;
+  if (!isProgram || body === null) return;
 
-  const body = document.querySelector('body > .maruamyu-body');
   body.style.visibility = 'hidden';
-  const programList = document.querySelectorAll('.list.imas-ipg-onAirList.ipgOnAirList tr');
+  const programList = document.querySelectorAll('.timetable.ipgOnAirList tr') || document.querySelectorAll('.list.imas-ipg-onAirList.ipgOnAirList tr');
   const getVoiceActorsFromStorage = async () => 
     new Promise((resolve) => 
       chrome.storage.local.get('voiceActors', (res) => 
