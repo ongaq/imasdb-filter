@@ -2,7 +2,7 @@
 	"manifest_version": 2,
 	"name": "アイマスDBキーワードフィルター",
 	"description": "アイマスDBの番組表で指定したキーワード(声優名など)で絞り込む",
-	"version": "1.0.4",
+	"version": "1.0.5",
 	"minimum_chrome_version": "88",
 	"icons": {
 		"128": "icon.png"

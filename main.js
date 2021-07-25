@@ -19,15 +19,16 @@
     return;
   }
 
-  programList.forEach((el) => {
-    const title = el.title.replace(/[\s\n]/g, '');
-    el.style.display = 'none';
+  programList.forEach((tr) => {
+    tr.style.display = 'none';
+    const text = [...tr.querySelectorAll('td')]
+      .reduce((temp, td) => temp += td.innerText.replace(/[\s\n]/g, ''), '');
 
     for (let i=0,len=voiceActors.length; i < len; i++) {
       const name = voiceActors[i];
       
-      if (title.indexOf(name) !== -1) {
-        el.style.display = 'table-row';
+      if (text.indexOf(name) !== -1) {
+        tr.style.display = 'table-row';
         break;
       }
     }
