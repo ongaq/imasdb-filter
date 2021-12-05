@@ -12,7 +12,14 @@
 			"matches": [
 				"https://imas-db.jp/*"
 			],
-			"js": ["main.js"],
+			"js": ["dist/hidden.js"],
+			"run_at": "document_start"
+		},
+		{
+			"matches": [
+				"https://imas-db.jp/*"
+			],
+			"js": ["dist/main.js"],
 			"run_at": "document_end",
 			"all_frames": true
 		}

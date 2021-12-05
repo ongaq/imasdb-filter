@@ -3,13 +3,16 @@ type VoiceActors = {
 };
 
 (async() => {
+  const removeStyle = () => document.querySelector('#extention-imasdb-filter')?.remove();
   const isProgram = /^\/bangumi\/(scheduled)?$/.test(location.pathname);
   const body = document.querySelector<HTMLDivElement>('body > .container-fluid') || 
     document.querySelector<HTMLDivElement>('body > .maruamyu-body');
 
-  if (!isProgram || body === null) return;
+  if (!isProgram || body === null) {
+    removeStyle();
+    return;
+  }
 
-  body.style.visibility = 'hidden';
   const programList = document.querySelectorAll<HTMLTableRowElement>('.timetable.ipgOnAirList tr') || 
     document.querySelectorAll<HTMLTableRowElement>('.list.imas-ipg-onAirList.ipgOnAirList tr');
   const getVoiceActorsFromStorage = async(): Promise<VoiceActors> => 
@@ -18,7 +21,7 @@ type VoiceActors = {
   const { voiceActors } = await getVoiceActorsFromStorage();
 
   if (typeof voiceActors === 'undefined' || !voiceActors.length) {
-    body.style.removeProperty('visibility');
+    removeStyle();
     return;
   }
 
@@ -34,5 +37,5 @@ type VoiceActors = {
       }
     }
   }
-  body.style.removeProperty('visibility');
+  removeStyle();
 })();
