@@ -1,45 +1,64 @@
-import cvList from './scripts/cvList.js';
-import storage from './scripts/storage.js';
-import textarea from './scripts/textarea.js';
+import cvList from './options/cvList';
+import storage from './options/storage';
+import textarea from './options/textarea';
 
 (async() => {
-  const saveBtnElm = document.querySelector('#save');
-  const countElm = document.querySelector('#countup');
-  const errorElm = document.querySelector('#error');
-  const brandListElm = document.querySelector('[data-brandlist]');
-  const brandBtnElms = document.querySelectorAll('[data-brand]');
+  const saveBtnElm = document.querySelector<HTMLButtonElement>('#save');
+  const countElm = document.querySelector<HTMLSpanElement>('#countup');
+  const errorElm = document.querySelector<HTMLParagraphElement>('#error');
+  const brandListElm = document.querySelector<HTMLDivElement>('[data-brandlist]');
+  const brandBtnElms = document.querySelectorAll<HTMLButtonElement>('[data-brand]');
+
+  if (saveBtnElm === null || 
+    countElm === null ||
+    errorElm === null ||
+    brandListElm === null ||
+    !brandBtnElms.length) return;
+
   const voiceActorsName = await storage.getName();
-  let timer = null;
+  const setVoiceActorNamesToTextArea = async(e) => {
+    brandListElm.classList.add('is-loading');
+    const element = await cvList.getHTML();
+
+    if (element === false) {
+      errorElm.innerText = 'サーバーエラーのため入力出来ませんでした。';
+      brandListElm.classList.remove('is-loading');
+      return;
+    }
+    if (e.target === null) {
+      return;
+    }
+
+    const target: HTMLButtonElement = e.target;
+    const brandName = target.dataset['brand'] ?? '';
+    const voiceActors = cvList.getCvList({ element, brandName });
+
+    textarea.setName({ voiceActors });
+    countElm.innerText = textarea.countup();
+    brandListElm.classList.remove('is-loading');
+  };
+
 
   textarea.setName(voiceActorsName);
   countElm.innerText = textarea.countup();
 
-  brandBtnElms.forEach((el) => 
-    el.addEventListener('click', async(e) => {
-      brandListElm.classList.add('is-loading');
-      const element = await cvList.getHTML();
+  for (const el of brandBtnElms) {
+    el.addEventListener('click', (e) => 
+      setVoiceActorNamesToTextArea(e));
+  }
 
-      if (element === false) {
-        errorElm.innerText = 'サーバーエラーのため入力出来ませんでした。';
-        brandListElm.classList.remove('is-loading');
-        return;
-      }
-
-      const brandName = e.target.dataset.brand;
-      const voiceActors = cvList.getCvList({ element, brandName });
-
-      textarea.setName({ voiceActors });
-      countElm.innerText = textarea.countup();
-      brandListElm.classList.remove('is-loading');
-    }));
-
-  textarea.elm.addEventListener('input', (e) => {
-    countElm.innerText = textarea.countup(e.target.value);
+  textarea.elm?.addEventListener('input', (e) => {
+    const target = <HTMLInputElement>e.target;
+    countElm.innerText = textarea.countup(target.value);
   });
 
+  let timer: number | undefined;
   saveBtnElm.addEventListener('click', () => {
-    const savedTextElm = document.querySelector('#savedText');
+    const savedTextElm = document.querySelector<HTMLParagraphElement>('#savedText');
     const inputVoiceActorsName = textarea.getName();
+
+    if (savedTextElm === null) return;
+
     savedTextElm.classList.remove('is-active');
     savedTextElm.innerText = '';
     

@@ -1,5 +1,5 @@
 class Storage {
-  getName() {
+  getName(): Promise<VoiceActors> {
     return new Promise((resolve) => 
       chrome.storage.local.get('voiceActors', (res) => 
         resolve(res)));

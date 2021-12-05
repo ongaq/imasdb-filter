@@ -1,53 +1,60 @@
+type CvListType = {
+  element: Document,
+  brandName: string | ''
+};
+
 class CvList {
+  html: '' | Document;
+  error: null | true;
   constructor() {
     this.html = '';
     this.error = null;
   }
-  getCvList({ element, brandName }) {
+  getCvList({ element, brandName }: CvListType): string[] | [] {
     const brandElement = element.querySelector(`[id="${brandName}"]`);
-    const tr = brandElement.querySelectorAll('.table tr');
 
-    return [...tr].reduce((temp, cvs) => {
-      const name = cvs.querySelector('ruby rb');
+    if (brandElement === null) {
+      this.error = true;
+      return [];
+    }
+
+    const tr = brandElement.querySelectorAll<HTMLTableRowElement>('.table tr');
+
+    return [...tr].reduce<string[]>((temp, cvs) => {
+      const name = cvs.querySelector<HTMLElement>('ruby rb');
     
       if (name === null) {
         return temp;
       }
-      if (!temp.includes(name.innerText)) {
-        temp.push(name.innerText);
+      const text = name.innerText;
+      if (!temp.includes(text)) {
+        temp.push(text);
       }
       return temp;
     }, []);
   }
-  getHTML() {
+  getHTML(): Promise<Document|false> {
     return new Promise(async(resolve) => {
       if (this.error) {
         return resolve(false);
-      } 
-      else if (this.html !== '') {
+      } else if (this.html !== '') {
         return resolve(this.html);
       }
 
-      const newHTML = await fetch('https://imas-db.jp/misc/cv.html')
-        .then((res) => {
-          if (res.status !== 200) {
-            return false;
-          }
-          return res.text();
-        })
-        .then((text) => {
-          if (!text) {
-            return false;
-          }
-          return new DOMParser().parseFromString(text, 'text/html');
-        })
-        .catch(() => false);
-
-      if (newHTML === false) {
+      const response = await fetch('https://imas-db.jp/misc/cv.html');
+      if (response.status !== 200) {
         this.error = true;
         return resolve(false);
-      } 
-      else if (this.html === '') {
+      }
+
+      const text = await response.text();
+      if (!text) {
+        this.error = true;
+        return resolve(false);
+      }
+
+      const newHTML = new DOMParser().parseFromString(text, 'text/html');
+      if (this.html === '') {
         this.html = newHTML;
       }
       return resolve(newHTML);

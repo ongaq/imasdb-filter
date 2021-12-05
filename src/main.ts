@@ -1,5 +1,3 @@
-'use strict';
-
 type VoiceActors = {
   voiceActors?: string[]
 };
@@ -19,14 +17,14 @@ type VoiceActors = {
       chrome.storage.local.get('voiceActors', (res) => resolve(res)));
   const { voiceActors } = await getVoiceActorsFromStorage();
 
-  if (!voiceActors || !voiceActors.length) {
+  if (typeof voiceActors === 'undefined' || !voiceActors.length) {
     body.style.removeProperty('visibility');
     return;
   }
 
-  programList.forEach((tr) => {
+  for (const tr of programList) {
     tr.style.display = 'none';
-    const text = [...tr.querySelectorAll('td')]
+    const text = [...tr.querySelectorAll<HTMLTableCellElement>('td')]
       .reduce((temp, td) => temp += td.innerText.replace(/[\s\n]/g, ''), '');
 
     for (const name of voiceActors) {
@@ -35,6 +33,6 @@ type VoiceActors = {
         break;
       }
     }
-  });
+  }
   body.style.removeProperty('visibility');
 })();
