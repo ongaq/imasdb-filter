@@ -4,7 +4,7 @@ class Storage {
       chrome.storage.local.get('voiceActors', (res) => 
         resolve(res)));
   }
-  setName(value) {
+  setName(value: [] | string[]) {
     return chrome.storage.local.set({ 'voiceActors': value });
   }
 }

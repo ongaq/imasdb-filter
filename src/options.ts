@@ -16,7 +16,7 @@ import textarea from './options/textarea';
     !brandBtnElms.length) return;
 
   const voiceActorsName = await storage.getName();
-  const setVoiceActorNamesToTextArea = async(e) => {
+  const setVoiceActorNamesToTextArea = async(e: MouseEvent) => {
     brandListElm.classList.add('is-loading');
     const element = await cvList.getHTML();
 
@@ -29,7 +29,7 @@ import textarea from './options/textarea';
       return;
     }
 
-    const target: HTMLButtonElement = e.target;
+    const target = <HTMLButtonElement>e.target;
     const brandName = target.dataset['brand'] ?? '';
     const voiceActors = cvList.getCvList({ element, brandName });
 
