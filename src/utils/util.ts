@@ -1,5 +1,5 @@
-const isProgram = /^\/bangumi\/(scheduled)?$/.test(location.pathname);
+const isProgramPage = /^\/bangumi\/(scheduled)?$/.test(location.pathname);
 
 export {
-	isProgram,
+	isProgramPage,
 };

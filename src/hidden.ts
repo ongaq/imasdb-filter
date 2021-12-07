@@ -1,8 +1,9 @@
+import { isProgramPage } from './utils/util';
+
 (() => {
   const hiddenStyle ='body>.container-fluid,body>.maruamyu-body{visibility:hidden;}';
-  const isProgram = /^\/bangumi\/(scheduled)?$/.test(location.pathname);
 
-  if (isProgram) {
+  if (isProgramPage) {
     const html = document.querySelector('html');
     const style = document.createElement('style');
     style.id = 'extention-imasdb-filter';

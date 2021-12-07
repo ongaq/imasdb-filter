@@ -1,13 +1,12 @@
-import { isProgram } from './utils/util';
+import { isProgramPage } from './utils/util';
 
 (async() => {
-  console.log('hoge');
-  const removeStyle = () => document.querySelector('#extention-imasdb-filter')?.remove();
+  const visibleProgramPage = () => document.querySelector('#extention-imasdb-filter')?.remove();
   const body = document.querySelector<HTMLDivElement>('body > .container-fluid') || 
     document.querySelector<HTMLDivElement>('body > .maruamyu-body');
 
-  if (!isProgram || body === null) {
-    removeStyle();
+  if (!isProgramPage || body === null) {
+    visibleProgramPage();
     return;
   }
 
@@ -19,7 +18,7 @@ import { isProgram } from './utils/util';
   const { voiceActors } = await getVoiceActorsFromStorage();
 
   if (typeof voiceActors === 'undefined' || !voiceActors.length) {
-    removeStyle();
+    visibleProgramPage();
     return;
   }
 
@@ -35,5 +34,5 @@ import { isProgram } from './utils/util';
       }
     }
   }
-  removeStyle();
+  visibleProgramPage();
 })();
