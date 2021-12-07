@@ -1,10 +1,8 @@
-type VoiceActors = {
-  voiceActors?: string[]
-};
+import { isProgram } from './utils/util';
 
 (async() => {
+  console.log('hoge');
   const removeStyle = () => document.querySelector('#extention-imasdb-filter')?.remove();
-  const isProgram = /^\/bangumi\/(scheduled)?$/.test(location.pathname);
   const body = document.querySelector<HTMLDivElement>('body > .container-fluid') || 
     document.querySelector<HTMLDivElement>('body > .maruamyu-body');
 

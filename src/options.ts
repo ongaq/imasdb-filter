@@ -62,8 +62,8 @@ import textarea from './options/textarea';
     savedTextElm.classList.remove('is-active');
     savedTextElm.innerText = '';
     
-    clearTimeout(timer);
-    timer = setTimeout(() => {
+    window.clearTimeout(timer);
+    timer = window.setTimeout(() => {
       storage.setName(inputVoiceActorsName);
       savedTextElm.innerText = '保存しました。ページをリロードして下さい。';
       savedTextElm.classList.add('is-active');
