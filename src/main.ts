@@ -1,12 +1,13 @@
 import { isProgramPage } from './utils/util';
 
 (async() => {
-  const visibleProgramPage = () => document.querySelector('#extention-imasdb-filter')?.remove();
+  const visibleProgramPage = (styleElm: HTMLStyleElement) => styleElm.remove();
+  const styleElm = document.querySelector<HTMLStyleElement>('#extention-imasdb-filter');
   const body = document.querySelector<HTMLDivElement>('body > .container-fluid') || 
     document.querySelector<HTMLDivElement>('body > .maruamyu-body');
 
   if (!isProgramPage || body === null) {
-    visibleProgramPage();
+    if (styleElm !== null) visibleProgramPage(styleElm);
     return;
   }
 
@@ -18,7 +19,7 @@ import { isProgramPage } from './utils/util';
   const { voiceActors } = await getVoiceActorsFromStorage();
 
   if (typeof voiceActors === 'undefined' || !voiceActors.length) {
-    visibleProgramPage();
+    if (styleElm !== null) visibleProgramPage(styleElm);
     return;
   }
 
@@ -34,5 +35,5 @@ import { isProgramPage } from './utils/util';
       }
     }
   }
-  visibleProgramPage();
+  if (styleElm !== null) visibleProgramPage(styleElm);
 })();

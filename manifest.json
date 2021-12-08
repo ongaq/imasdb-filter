@@ -2,7 +2,7 @@
 	"manifest_version": 2,
 	"name": "アイマスDBキーワードフィルター",
 	"description": "アイマスDBの番組表で指定したキーワード(声優名など)で絞り込む",
-	"version": "1.0.6",
+	"version": "1.1.0",
 	"minimum_chrome_version": "88",
 	"icons": {
 		"128": "icon.png"
@@ -12,14 +12,18 @@
 			"matches": [
 				"https://imas-db.jp/*"
 			],
-			"js": ["dist/hidden.js"],
+			"js": [
+				"dist/hidden.js"
+			],
 			"run_at": "document_start"
 		},
 		{
 			"matches": [
 				"https://imas-db.jp/*"
 			],
-			"js": ["dist/main.js"],
+			"js": [
+				"dist/main.js"
+			],
 			"run_at": "document_end",
 			"all_frames": true
 		}
