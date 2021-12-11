@@ -1,0 +1,8 @@
+{
+  "short_name": "アイマスDBフィルター",
+  "name": "アイマスDBフィルター設定",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}

@@ -1,0 +1,25 @@
+.filter {
+  &-submit {
+    display: flex;
+    margin-top: 24px;
+    align-items: center;
+
+    &-countup {
+      margin-left: 16px;
+
+      &::after {
+        content: "名";
+      }
+    }
+    &-savedText {
+      opacity: 0;
+      margin-left: 16px;
+      font-size: 10px;
+      transition: opacity 0.3s ease;
+
+      &.is-active {
+        opacity: 1;
+      }
+    }
+  }
+}
