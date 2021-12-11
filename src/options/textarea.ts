@@ -1,22 +1,24 @@
 class Textarea {
+  elm: HTMLTextAreaElement | null;
+  names: [] | string[] | undefined;
   constructor() {
     this.elm = document.querySelector('#voiceActors');
     this.names = [];
   }
-  makeArray(value) {
+  makeArray(value: string): string[] {
     return value.split('\n').filter(Boolean);
   }
-  getName() {
+  getName(): [] | string[] {
     if (this.elm === null || this.elm.value === '') {
       return [];
     }
     return this.makeArray(this.elm.value);
   }
-  setName(data) {
-    if (this.elm === null || !Object.keys(data).length) {
+  setName(data: VoiceActors): void {
+    if (typeof data === 'undefined' || this.elm === null || !Object.keys(data).length) {
       return;
     }
-    const names = this.names = data.voiceActors;
+    const names = this.names = data.voiceActors || [];
 
     if (this.elm.value.length) {
       const savedNames = this.makeArray(this.elm.value);
@@ -31,11 +33,14 @@ class Textarea {
       this.elm.value = names.join('\n');
     }
   }
-  countup(value) {
-    if (typeof value !== 'undefined') {
-      return this.makeArray(value).length;
+  countup(value?: string): string {
+    if (typeof value !== 'undefined' ) {
+      return String(this.makeArray(value).length);
     }
-    return this.names.length;
+    if (typeof this.names === 'undefined') {
+      return '0';
+    }
+    return String(this.names.length);
   }
 }
 export default new Textarea();

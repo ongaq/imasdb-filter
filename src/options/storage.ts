@@ -1,10 +1,10 @@
 class Storage {
-  getName() {
+  getName(): Promise<VoiceActors> {
     return new Promise((resolve) => 
       chrome.storage.local.get('voiceActors', (res) => 
         resolve(res)));
   }
-  setName(value) {
+  setName(value: [] | string[]) {
     return chrome.storage.local.set({ 'voiceActors': value });
   }
 }
