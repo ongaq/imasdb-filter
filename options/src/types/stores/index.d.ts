@@ -4,3 +4,6 @@ export type State = {
 export type Action = {
   type?: string;
 };
+export type CountReducer = {
+  countReducer: State;
+};

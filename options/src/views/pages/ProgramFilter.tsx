@@ -1,4 +1,6 @@
-import { AutoInput, Submit, Textarea } from 'views/components/ProgramFilter';
+import AutoInput from 'views/components/programFilter/AutoInput';
+import Textarea from 'views/components/programFilter/Textarea';
+import Submit from 'views/components/programFilter/Submit';
 import 'styles/pages/ProgramFilter.scss';
 
 const ProgramFilter = () => {
