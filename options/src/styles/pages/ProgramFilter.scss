@@ -8,13 +8,13 @@
       margin-left: 16px;
 
       &::after {
-        content: "名";
+        content: "キーワード";
       }
     }
     &-savedText {
       opacity: 0;
       margin-left: 16px;
-      font-size: 10px;
+      font-size: 0.9rem;
       transition: opacity 0.3s ease;
 
       &.is-active {

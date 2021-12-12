@@ -4,9 +4,9 @@ const initialState: State = {
   error: null,
   html: '',
   isLoading: false,
-  isSaved: false,
+  isSaved: null,
   textareaData: [],
-  saveActorsCount: 0,
+  actorsCount: 0,
 };
 const programFilterReducer = (state = initialState, action: Action) => {
   switch (action.type) {
@@ -24,7 +24,7 @@ const programFilterReducer = (state = initialState, action: Action) => {
       }
       return { ...state, textareaData: [ ...state.textareaData, ...action.textareaData] };
     case 'SET_ACTORS_COUNT':
-      return { ...state, saveActorsCount: action.saveActorsCount };
+      return { ...state, actorsCount: action.actorsCount };
     default:
       return state;
   }

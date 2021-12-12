@@ -10,7 +10,7 @@ const useStates = (): AutoInputType => {
     html,
     isLoading,
     textareaData,
-    saveActorsCount
+    actorsCount
   } = useSelector((state: ProgramFilterReducer) => state.programFilterReducer);
   const dispatch = useDispatch();
   const setError = (error: Error) => 
@@ -21,15 +21,15 @@ const useStates = (): AutoInputType => {
     dispatch({ type: 'SET_LOADING', isLoading });
   const setTextareaData = (textareaData: TextareaData) => 
     dispatch({ type: 'SET_TEXTAREA', textareaData });
-  const setActorsCount = (saveActorsCount: SaveActorsCount) => 
-    dispatch({ type: 'SET_ACTORS_COUNT', saveActorsCount });
+  const setActorsCount = (actorsCount: SaveActorsCount) => 
+    dispatch({ type: 'SET_ACTORS_COUNT', actorsCount });
 
   return {
     error,
     html,
     isLoading,
     textareaData,
-    saveActorsCount,
+    actorsCount,
     setError,
     setHtml,
     setLoading,
