@@ -1,9 +1,10 @@
 import { useSelector, useDispatch } from 'react-redux';
 import classNames from 'classnames';
-import { UseStates, Error, Html, IsLoading, TextareaData, SaveActorsCount, ProgramFilterReducer } from 'types/stores/views/components/ProgramFilter.d';
+import { Error, Html, IsLoading, TextareaData, AutoInputType, SaveActorsCount, ProgramFilterReducer } from 'types/stores/views/components/ProgramFilter.d';
 import { CvListType } from 'types/views/components/programFilter/AutoInput.d';
+import { useEffect } from 'react';
 
-const useStates = (): UseStates => {
+const useStates = (): AutoInputType => {
   const {
     error,
     html,
@@ -37,7 +38,7 @@ const useStates = (): UseStates => {
   }
 };
 
-const getCvList = (state: UseStates, { element, brandName }: CvListType): string[] | [] => {
+const getCvList = (state: AutoInputType, { element, brandName }: CvListType): string[] | [] => {
   const brandElement = element.querySelector(`[id="${brandName}"]`);
 
   if (brandElement === null) {
@@ -60,7 +61,7 @@ const getCvList = (state: UseStates, { element, brandName }: CvListType): string
     return temp;
   }, []);
 };
-const getHTML = (state: UseStates): Promise<Document|false> => {
+const getHTML = (state: AutoInputType): Promise<Document|false> => {
   return new Promise(async(resolve) => {
     if (state.error) {
       return resolve(false);
@@ -89,7 +90,7 @@ const getHTML = (state: UseStates): Promise<Document|false> => {
     return resolve(newHTML);
   });
 };
-const setVoiceActorNamesToTextArea = async(state: UseStates, e: React.SyntheticEvent<HTMLButtonElement>) => {
+const setVoiceActorNamesToTextArea = async(state: AutoInputType, e: React.SyntheticEvent<HTMLButtonElement>) => {
   if (!(e.target instanceof HTMLButtonElement)) {
     return;
   }
@@ -105,13 +106,10 @@ const setVoiceActorNamesToTextArea = async(state: UseStates, e: React.SyntheticE
   const target = e.target;
   const brandName = target.dataset['brand'] ?? '';
   const voiceActors = getCvList(state, { element, brandName });
+  const totalCount = state.textareaData.length + voiceActors.length;
 
-  console.log('voiceActors:', voiceActors);
-
-  state.setTextareaData(voiceActors.join('\n'));
-  // textarea.setName({ voiceActors });
-  // state.setActorsCount();
-  // countElm.innerText = textarea.countup();
+  state.setTextareaData(voiceActors);
+  state.setActorsCount(totalCount);
   state.setLoading(false);
 };
 

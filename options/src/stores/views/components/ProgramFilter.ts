@@ -4,7 +4,8 @@ const initialState: State = {
   error: null,
   html: '',
   isLoading: false,
-  textareaData: '',
+  isSaved: false,
+  textareaData: [],
   saveActorsCount: 0,
 };
 const programFilterReducer = (state = initialState, action: Action) => {
@@ -15,8 +16,13 @@ const programFilterReducer = (state = initialState, action: Action) => {
       return { ...state, html: action.html };
     case 'SET_LOADING':
       return { ...state, isLoading: action.isLoading };
+    case 'SET_SAVED':
+      return { ...state, isSaved: action.isSaved };
     case 'SET_TEXTAREA':
-      return { ...state, textareaData: action.textareaData };
+      if (typeof action.textareaData === 'undefined') {
+        return state;
+      }
+      return { ...state, textareaData: [ ...state.textareaData, ...action.textareaData] };
     case 'SET_ACTORS_COUNT':
       return { ...state, saveActorsCount: action.saveActorsCount };
     default:

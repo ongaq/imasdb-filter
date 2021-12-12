@@ -1,6 +1,6 @@
 {
-  "short_name": "アイマスDBフィルター",
-  "name": "アイマスDBフィルター設定",
+  "short_name": "アイマスDBキーワードフィルター",
+  "name": "アイマスDBキーワードフィルター設定",
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
