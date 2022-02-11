@@ -16,6 +16,7 @@ body {
 }
 .content {
   padding: 24px;
+  max-height: calc(100vh - 32px);
   min-height: calc(100vh - 32px);
 
   h1 {

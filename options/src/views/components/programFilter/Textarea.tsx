@@ -4,58 +4,47 @@ import classNames from 'classnames';
 import { TextareaData, SetTextareaData, SaveActorsCount, SetActorsCount, ProgramFilterReducer } from 'types/stores/views/components/ProgramFilter.d';
 import { useDebounce } from 'utils/util';
 
-const getName = (setTextareaData: SetTextareaData) => {
-  if (typeof chrome.storage === 'undefined') return;
-
-  chrome.storage.local.get('voiceActors', ({ actors }) => {
-    setTextareaData(actors);
-  });
-};
-const changeTextarea = (
-    debouncedInputText: string,
-    textareaData: TextareaData,
-    setTextareaData: SetTextareaData,
-    setActorsCount: SetActorsCount
-  ) => {
-  
-  if (debouncedInputText.length) {
-    const valArray = debouncedInputText.split('\n').filter(Boolean);
-    console.log('valArray:', valArray);
-
-    if (textareaData.length) {
-      const newArray = valArray.filter((key) => (textareaData as string[]).indexOf(key) === -1);
-      setTextareaData(newArray);
-      setActorsCount(newArray.length);
-    } else {
-      setTextareaData(valArray);
-      setActorsCount(valArray.length);
-    }
-  }
-};
 const Textarea = () => {
   const { textareaData, isLoading } = useSelector((state: ProgramFilterReducer) => state.programFilterReducer);
   const dispatch = useDispatch();
-  const setTextareaData = (textareaData: TextareaData) => dispatch({ type: 'SET_TEXTAREA', textareaData });
-  const setActorsCount = (saveActorsCount: SaveActorsCount) => dispatch({ type: 'SET_ACTORS_COUNT', saveActorsCount });
   const buttonClass = classNames({
     'textarea': true,
     'is-loading': isLoading,
   });
   const textarea = textareaData.join('\n');
+  const getName = () => {
+    if (typeof chrome.storage === 'undefined') return;
+  
+    chrome.storage.local.get('voiceActors', ({ actors }) => {
+      dispatch({ type: 'SET_TEXTAREA', textareaData: actors });
+    });
+  };
+  const changeTextarea = (inputText: string) => {
+    if (!inputText.length) {
+      dispatch({ type: 'SET_ACTORS_COUNT', actorsCount: 0 });
+      return;
+    }
+    const valArray = inputText.split('\n').filter(Boolean);
+    dispatch({ type: 'SET_TEXTAREA', textareaData: valArray });
+    dispatch({ type: 'SET_ACTORS_COUNT', actorsCount: valArray.length });
+    // if (textareaData.length) {
+    //   const newArray = [...valArray];
+    //   console.log('newArray:', newArray);
+    //   dispatch({ type: 'SET_TEXTAREA', textareaData: newArray });
+    //   dispatch({ type: 'SET_ACTORS_COUNT', actorsCount: newArray.length });
+    // } else {
+    //   dispatch({ type: 'SET_TEXTAREA', textareaData: valArray });
+    //   dispatch({ type: 'SET_ACTORS_COUNT', actorsCount: valArray.length });
+    // }
+  };
+  const hideActorsCount = () => dispatch({ type: 'SET_ACTORS_COUNT', actorsCount: '---' });
 
-  const [inputText, setInputText] = useState('');
-  const debouncedInputText = useDebounce(inputText, 500);
-  const handleChange = (e:any) => setInputText(e.target.value);
-
-  useEffect(() => {
-    changeTextarea(debouncedInputText, textareaData, setTextareaData, setActorsCount)
-  }, [debouncedInputText]);
-
-  getName(setTextareaData);
+  useEffect(() => getName(), []);
 
   return (
     <textarea 
-      onChange={handleChange} 
+      onFocus={() => hideActorsCount()}
+      onBlur={(e) => changeTextarea(e.target.value)}
       defaultValue={textarea} 
       className={buttonClass}
     ></textarea>

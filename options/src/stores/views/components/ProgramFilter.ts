@@ -22,7 +22,7 @@ const programFilterReducer = (state = initialState, action: Action) => {
       if (typeof action.textareaData === 'undefined') {
         return state;
       }
-      return { ...state, textareaData: [ ...state.textareaData, ...action.textareaData] };
+      return { ...state, textareaData: [...action.textareaData] };
     case 'SET_ACTORS_COUNT':
       return { ...state, actorsCount: action.actorsCount };
     default:

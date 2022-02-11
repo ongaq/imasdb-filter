@@ -4,7 +4,7 @@ export type Error = null | true;
 export type Html = '' | Document;
 export type IsLoading = boolean;
 export type IsSaved = boolean | null;
-export type TextareaData = string[] | [];
+export type TextareaData = string[];
 export type SaveActorsCount = number;
 export type SetError = (error: Error) => Action;
 export type SetHtml = (html: Html) => Action;

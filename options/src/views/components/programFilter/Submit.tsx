@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import classNames from 'classnames';
 import { TextareaData, SetSaved, IsSaved, ProgramFilterReducer } from 'types/stores/views/components/ProgramFilter.d';
+import Button from '@mui/material/Button';
 
 const saveActors = async(textareaData: TextareaData, setSaved: SetSaved) => {
   if (typeof chrome.storage === 'undefined') {
@@ -42,9 +43,14 @@ const Submit = () => {
 
   return (
     <div className="filter-submit">
-      <button id="save" onClick={() => saveActors(textareaData, setSaved)} className={buttonClass} disabled={isDisabled}>保存</button>
-      <span id="countup" className="filter-submit-countup">{ actorsCount }</span>
-      <p id="savedText" className={savedTextClass}>{ saveState }</p>
+      <Button 
+        variant="contained"
+        onClick={() => saveActors(textareaData, setSaved)} 
+        className={buttonClass} 
+        disabled={isDisabled}
+      >保存</Button>
+      <span className="filter-submit-countup">{ actorsCount }</span>
+      <p className={savedTextClass}>{ saveState }</p>
     </div>
   )
 };
